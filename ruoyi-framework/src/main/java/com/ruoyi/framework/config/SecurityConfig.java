@@ -22,7 +22,7 @@ import com.ruoyi.framework.security.handle.AuthenticationEntryPointImpl;
 import com.ruoyi.framework.security.handle.LogoutSuccessHandlerImpl;
 
 /**
- * spring security配置
+ * Spring Security配置
  * 
  * @author ruoyi
  */
@@ -73,8 +73,8 @@ public class SecurityConfig
     public AuthenticationManager authenticationManager()
     {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-        daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService); // 设置用户详情服务
+        daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder()); // 设置密码加密方式为 BCrypt
         return new ProviderManager(daoAuthenticationProvider);
     }
 

@@ -34,12 +34,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 修改：批量插入 -->
     <insert id="insertOrganization" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
-        insert into mdm_organization (organization_code, organization_name, create_by, create_time, update_by,
-        update_time, remark)
+        insert into mdm_organization (organization_code, organization_name)
         values
         <foreach collection="list" item="org" separator=",">
-            (#{org.organizationCode}, #{org.organizationName}, #{org.createBy}, #{org.createTime}, #{org.updateBy},
-            #{org.updateTime}, #{org.remark})
+            (#{org.organizationCode}, #{org.organizationName})
         </foreach>
     </insert>
 

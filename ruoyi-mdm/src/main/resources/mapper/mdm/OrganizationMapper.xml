@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ruoyi.organization.mapper.MdmOrganizationMapper">
+<mapper namespace="com.ruoyi.mdm.mapper.OrganizationMapper">
     
-    <resultMap type="MdmOrganization" id="MdmOrganizationResult">
+    <resultMap type="Organization" id="OrganizationResult">
         <result property="id"    column="id"    />
         <result property="organizationCode"    column="organization_code"    />
         <result property="organizationName"    column="organization_name"    />
@@ -15,24 +15,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="remark"    column="remark"    />
     </resultMap>
 
-    <sql id="selectMdmOrganizationVo">
+    <sql id="selectOrganizationVo">
         select id, organization_code, organization_name, create_by, create_time, update_by, update_time, remark from mdm_organization
     </sql>
 
-    <select id="selectMdmOrganizationList" parameterType="MdmOrganization" resultMap="MdmOrganizationResult">
-        <include refid="selectMdmOrganizationVo"/>
+    <select id="selectOrganizationList" parameterType="Organization" resultMap="OrganizationResult">
+        <include refid="selectOrganizationVo"/>
         <where>  
             <if test="organizationCode != null  and organizationCode != ''"> and organization_code like concat('%', #{organizationCode}, '%')</if>
             <if test="organizationName != null  and organizationName != ''"> and organization_name like concat('%', #{organizationName}, '%')</if>
         </where>
     </select>
     
-    <select id="selectMdmOrganizationById" parameterType="Long" resultMap="MdmOrganizationResult">
-        <include refid="selectMdmOrganizationVo"/>
+    <select id="selectOrganizationById" parameterType="Long" resultMap="OrganizationResult">
+        <include refid="selectOrganizationVo"/>
         where id = #{id}
     </select>
 
-    <insert id="insertMdmOrganization" parameterType="MdmOrganization" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertOrganization" parameterType="Organization" useGeneratedKeys="true" keyProperty="id">
         insert into mdm_organization
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="organizationCode != null and organizationCode != ''">organization_code,</if>
@@ -54,7 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
     </insert>
 
-    <update id="updateMdmOrganization" parameterType="MdmOrganization">
+    <update id="updateOrganization" parameterType="Organization">
         update mdm_organization
         <trim prefix="SET" suffixOverrides=",">
             <if test="organizationCode != null and organizationCode != ''">organization_code = #{organizationCode},</if>
@@ -68,11 +68,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </update>
 
-    <delete id="deleteMdmOrganizationById" parameterType="Long">
+    <delete id="deleteOrganizationById" parameterType="Long">
         delete from mdm_organization where id = #{id}
     </delete>
 
-    <delete id="deleteMdmOrganizationByIds" parameterType="String">
+    <delete id="deleteOrganizationByIds" parameterType="String">
         delete from mdm_organization where id in 
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}

@@ -1,15 +1,15 @@
-package com.ruoyi.organization.service;
+package com.ruoyi.mdm.service;
 
 import java.util.List;
-import com.ruoyi.organization.domain.MdmOrganization;
+import com.ruoyi.mdm.domain.Organization;
 
 /**
  * 组织管理Service接口
  * 
  * @author Yiming Pu
- * @date 2025-03-13
+ * @date 2025-03-14
  */
-public interface IMdmOrganizationService 
+public interface IOrganizationService 
 {
     /**
      * 查询组织管理
@@ -17,31 +17,31 @@ public interface IMdmOrganizationService
      * @param id 组织管理主键
      * @return 组织管理
      */
-    public MdmOrganization selectMdmOrganizationById(Long id);
+    public Organization selectOrganizationById(Long id);
 
     /**
      * 查询组织管理列表
      * 
-     * @param mdmOrganization 组织管理
+     * @param organization 组织管理
      * @return 组织管理集合
      */
-    public List<MdmOrganization> selectMdmOrganizationList(MdmOrganization mdmOrganization);
+    public List<Organization> selectOrganizationList(Organization organization);
 
     /**
      * 新增组织管理
      * 
-     * @param mdmOrganization 组织管理
+     * @param organization 组织管理
      * @return 结果
      */
-    public int insertMdmOrganization(MdmOrganization mdmOrganization);
+    public int insertOrganization(Organization organization);
 
     /**
      * 修改组织管理
      * 
-     * @param mdmOrganization 组织管理
+     * @param organization 组织管理
      * @return 结果
      */
-    public int updateMdmOrganization(MdmOrganization mdmOrganization);
+    public int updateOrganization(Organization organization);
 
     /**
      * 批量删除组织管理
@@ -49,7 +49,7 @@ public interface IMdmOrganizationService
      * @param ids 需要删除的组织管理主键集合
      * @return 结果
      */
-    public int deleteMdmOrganizationByIds(Long[] ids);
+    public int deleteOrganizationByIds(Long[] ids);
 
     /**
      * 删除组织管理信息
@@ -57,5 +57,5 @@ public interface IMdmOrganizationService
      * @param id 组织管理主键
      * @return 结果
      */
-    public int deleteMdmOrganizationById(Long id);
+    public int deleteOrganizationById(Long id);
 }

@@ -1,4 +1,4 @@
-package com.ruoyi.organization.controller;
+package com.ruoyi.mdm.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -16,8 +16,8 @@ import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.enums.BusinessType;
-import com.ruoyi.organization.domain.MdmOrganization;
-import com.ruoyi.organization.service.IMdmOrganizationService;
+import com.ruoyi.mdm.domain.Organization;
+import com.ruoyi.mdm.service.IOrganizationService;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
 
@@ -25,80 +25,80 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * 组织管理Controller
  * 
  * @author Yiming Pu
- * @date 2025-03-13
+ * @date 2025-03-14
  */
 @RestController
-@RequestMapping("/organization/organization")
-public class MdmOrganizationController extends BaseController
+@RequestMapping("/mdm/organization")
+public class OrganizationController extends BaseController
 {
     @Autowired
-    private IMdmOrganizationService mdmOrganizationService;
+    private IOrganizationService organizationService;
 
     /**
      * 查询组织管理列表
      */
-    @PreAuthorize("@ss.hasPermi('organization:organization:list')")
+    @PreAuthorize("@ss.hasPermi('mdm:organization:list')")
     @GetMapping("/list")
-    public TableDataInfo list(MdmOrganization mdmOrganization)
+    public TableDataInfo list(Organization organization)
     {
         startPage();
-        List<MdmOrganization> list = mdmOrganizationService.selectMdmOrganizationList(mdmOrganization);
+        List<Organization> list = organizationService.selectOrganizationList(organization);
         return getDataTable(list);
     }
 
     /**
      * 导出组织管理列表
      */
-    @PreAuthorize("@ss.hasPermi('organization:organization:export')")
+    @PreAuthorize("@ss.hasPermi('mdm:organization:export')")
     @Log(title = "组织管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, MdmOrganization mdmOrganization)
+    public void export(HttpServletResponse response, Organization organization)
     {
-        List<MdmOrganization> list = mdmOrganizationService.selectMdmOrganizationList(mdmOrganization);
-        ExcelUtil<MdmOrganization> util = new ExcelUtil<MdmOrganization>(MdmOrganization.class);
+        List<Organization> list = organizationService.selectOrganizationList(organization);
+        ExcelUtil<Organization> util = new ExcelUtil<Organization>(Organization.class);
         util.exportExcel(response, list, "组织管理数据");
     }
 
     /**
      * 获取组织管理详细信息
      */
-    @PreAuthorize("@ss.hasPermi('organization:organization:query')")
+    @PreAuthorize("@ss.hasPermi('mdm:organization:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
-        return success(mdmOrganizationService.selectMdmOrganizationById(id));
+        return success(organizationService.selectOrganizationById(id));
     }
 
     /**
      * 新增组织管理
      */
-    @PreAuthorize("@ss.hasPermi('organization:organization:add')")
+    @PreAuthorize("@ss.hasPermi('mdm:organization:add')")
     @Log(title = "组织管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody MdmOrganization mdmOrganization)
+    public AjaxResult add(@RequestBody Organization organization)
     {
-        return toAjax(mdmOrganizationService.insertMdmOrganization(mdmOrganization));
+        return toAjax(organizationService.insertOrganization(organization));
     }
 
     /**
      * 修改组织管理
      */
-    @PreAuthorize("@ss.hasPermi('organization:organization:edit')")
+    @PreAuthorize("@ss.hasPermi('mdm:organization:edit')")
     @Log(title = "组织管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody MdmOrganization mdmOrganization)
+    public AjaxResult edit(@RequestBody Organization organization)
     {
-        return toAjax(mdmOrganizationService.updateMdmOrganization(mdmOrganization));
+        return toAjax(organizationService.updateOrganization(organization));
     }
 
     /**
      * 删除组织管理
      */
-    @PreAuthorize("@ss.hasPermi('organization:organization:remove')")
+    @PreAuthorize("@ss.hasPermi('mdm:organization:remove')")
     @Log(title = "组织管理", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
-        return toAjax(mdmOrganizationService.deleteMdmOrganizationByIds(ids));
+        return toAjax(organizationService.deleteOrganizationByIds(ids));
     }
 }

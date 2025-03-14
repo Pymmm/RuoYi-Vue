@@ -93,4 +93,15 @@ public class OrganizationServiceImpl implements IOrganizationService
     {
         return organizationMapper.deleteOrganizationById(id);
     }
+
+    /**
+     * 新增：批量插入组织管理
+     *
+     * @param organizationList
+     * @return 结果
+     */
+    @Override
+    public int insertOrganization(List<Organization> organizationList) {
+        return organizationMapper.insertOrganization(organizationList);
+    }
 }

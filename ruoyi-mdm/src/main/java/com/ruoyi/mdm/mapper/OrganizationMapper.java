@@ -58,4 +58,12 @@ public interface OrganizationMapper
      * @return 结果
      */
     public int deleteOrganizationByIds(Long[] ids);
+
+    /**
+     * 新增：批量插入组织管理
+     *
+     * @param organizationList
+     * @return 结果
+     */
+    public int insertOrganization(List<Organization> organizationList);
 }

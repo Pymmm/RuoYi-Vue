@@ -32,26 +32,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
 
-    <insert id="insertOrganization" parameterType="Organization" useGeneratedKeys="true" keyProperty="id">
-        insert into mdm_organization
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="organizationCode != null and organizationCode != ''">organization_code,</if>
-            <if test="organizationName != null and organizationName != ''">organization_name,</if>
-            <if test="createBy != null">create_by,</if>
-            <if test="createTime != null">create_time,</if>
-            <if test="updateBy != null">update_by,</if>
-            <if test="updateTime != null">update_time,</if>
-            <if test="remark != null">remark,</if>
-         </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="organizationCode != null and organizationCode != ''">#{organizationCode},</if>
-            <if test="organizationName != null and organizationName != ''">#{organizationName},</if>
-            <if test="createBy != null">#{createBy},</if>
-            <if test="createTime != null">#{createTime},</if>
-            <if test="updateBy != null">#{updateBy},</if>
-            <if test="updateTime != null">#{updateTime},</if>
-            <if test="remark != null">#{remark},</if>
-         </trim>
+    <!-- 修改：批量插入 -->
+    <insert id="insertOrganization" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into mdm_organization (organization_code, organization_name, create_by, create_time, update_by,
+        update_time, remark)
+        values
+        <foreach collection="list" item="org" separator=",">
+            (#{org.organizationCode}, #{org.organizationName}, #{org.createBy}, #{org.createTime}, #{org.updateBy},
+            #{org.updateTime}, #{org.remark})
+        </foreach>
     </insert>
 
     <update id="updateOrganization" parameterType="Organization">

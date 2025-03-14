@@ -2,6 +2,9 @@ package com.ruoyi.mdm.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+//新增：引入（否则会引起MultipartFile报错，暂时不知道是不是Spring Web依赖的问题）
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,14 +26,13 @@ import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 组织管理Controller
- * 
+ *
  * @author Yiming Pu
  * @date 2025-03-14
  */
 @RestController
 @RequestMapping("/mdm/organization")
-public class OrganizationController extends BaseController
-{
+public class OrganizationController extends BaseController {
     @Autowired
     private IOrganizationService organizationService;
 
@@ -39,8 +41,7 @@ public class OrganizationController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mdm:organization:list')")
     @GetMapping("/list")
-    public TableDataInfo list(Organization organization)
-    {
+    public TableDataInfo list(Organization organization) {
         startPage();
         List<Organization> list = organizationService.selectOrganizationList(organization);
         return getDataTable(list);
@@ -52,11 +53,22 @@ public class OrganizationController extends BaseController
     @PreAuthorize("@ss.hasPermi('mdm:organization:export')")
     @Log(title = "组织管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, Organization organization)
-    {
+    public void export(HttpServletResponse response, Organization organization) {
         List<Organization> list = organizationService.selectOrganizationList(organization);
         ExcelUtil<Organization> util = new ExcelUtil<Organization>(Organization.class);
         util.exportExcel(response, list, "组织管理数据");
+    }
+
+    /**
+     * 新增：导入组织管理列表
+     */
+    @PreAuthorize("@ss.hasPermi('mdm:organization:add')")
+    @Log(title = "组织管理", businessType = BusinessType.IMPORT)
+    @PostMapping("/import")
+    public AjaxResult excelImport(MultipartFile file) throws Exception {
+        ExcelUtil<Organization> util = new ExcelUtil<Organization>(Organization.class);
+        List<Organization> organizationList = util.importExcel(file.getInputStream());
+        return toAjax(organizationService.insertOrganization(organizationList));
     }
 
     /**
@@ -64,8 +76,7 @@ public class OrganizationController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mdm:organization:query')")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id)
-    {
+    public AjaxResult getInfo(@PathVariable("id") Long id) {
         return success(organizationService.selectOrganizationById(id));
     }
 
@@ -75,8 +86,7 @@ public class OrganizationController extends BaseController
     @PreAuthorize("@ss.hasPermi('mdm:organization:add')")
     @Log(title = "组织管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody Organization organization)
-    {
+    public AjaxResult add(@RequestBody Organization organization) {
         return toAjax(organizationService.insertOrganization(organization));
     }
 
@@ -86,8 +96,7 @@ public class OrganizationController extends BaseController
     @PreAuthorize("@ss.hasPermi('mdm:organization:edit')")
     @Log(title = "组织管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody Organization organization)
-    {
+    public AjaxResult edit(@RequestBody Organization organization) {
         return toAjax(organizationService.updateOrganization(organization));
     }
 
@@ -96,9 +105,8 @@ public class OrganizationController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mdm:organization:remove')")
     @Log(title = "组织管理", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
+    @DeleteMapping("/{ids}")
+    public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(organizationService.deleteOrganizationByIds(ids));
     }
 }

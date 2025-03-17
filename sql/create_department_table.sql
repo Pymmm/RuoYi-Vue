@@ -5,8 +5,9 @@ DROP TABLE IF EXISTS mdm_department;
 
 CREATE TABLE mdm_department
 (
-    department_code VARCHAR(10) PRIMARY KEY COMMENT '部门编码',
-    department_name VARCHAR(30) NOT NULL COMMENT '部门名称',
+    id              BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '部门ID',
+    department_code VARCHAR(10)  NOT NULL UNIQUE COMMENT '部门编码',
+    department_name VARCHAR(255) NOT NULL COMMENT '部门名称',
     create_by       VARCHAR(64)  DEFAULT NULL COMMENT '创建者',
     create_time     DATETIME     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     update_by       VARCHAR(64)  DEFAULT NULL COMMENT '更新者',
@@ -18,14 +19,14 @@ CREATE TABLE mdm_department
 -- 部门表初始化数据
 -- ----------------------------
 INSERT INTO mdm_department
-VALUES ('8001', '广东精艺金属股份有限公司', 'admin', NOW(), NULL, NULL, NULL);
+VALUES (NULL, '8001', '广东精艺金属股份有限公司', 'admin', NOW(), NULL, NULL, NULL);
 INSERT INTO mdm_department
-VALUES ('800101', '顺德工厂', 'admin', NOW(), NULL, NULL, NULL);
+VALUES (NULL, '800101', '顺德工厂', 'admin', NOW(), NULL, NULL, NULL);
 INSERT INTO mdm_department
-VALUES ('800102', '人力运营部', 'admin', NOW(), NULL, NULL, NULL);
+VALUES (NULL, '800102', '人力运营部', 'admin', NOW(), NULL, NULL, NULL);
 INSERT INTO mdm_department
-VALUES ('800103', '科技行政部', 'admin', NOW(), NULL, NULL, NULL);
+VALUES (NULL, '800103', '科技行政部', 'admin', NOW(), NULL, NULL, NULL);
 INSERT INTO mdm_department
-VALUES ('80010101', '生产部', 'admin', NOW(), NULL, NULL, NULL);
+VALUES (NULL, '80010101', '生产部', 'admin', NOW(), NULL, NULL, NULL);
 INSERT INTO mdm_department
-VALUES ('8001010101', '品管办', 'admin', NOW(), NULL, NULL, NULL);
+VALUES (NULL, '8001010101', '品管办', 'admin', NOW(), NULL, NULL, NULL);

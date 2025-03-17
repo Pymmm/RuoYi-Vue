@@ -4,6 +4,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 //新增：引入（否则会引起MultipartFile报错，暂时不知道是不是Spring Web依赖的问题）
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +36,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  */
 @RestController
 @RequestMapping("/mdm/organization")
+@Api(tags = "组织管理")
 public class OrganizationController extends BaseController {
     @Autowired
     private IOrganizationService organizationService;
@@ -40,8 +45,10 @@ public class OrganizationController extends BaseController {
      * 查询组织管理列表
      */
     @PreAuthorize("@ss.hasPermi('mdm:organization:list')")
+    @ApiOperation(value = "查询组织管理列表", notes = "返回组织管理列表")
     @GetMapping("/list")
-    public TableDataInfo list(Organization organization) {
+    public TableDataInfo list(
+            @ApiParam(value = "查询条件", required = true) Organization organization) {
         startPage();
         List<Organization> list = organizationService.selectOrganizationList(organization);
         return getDataTable(list);

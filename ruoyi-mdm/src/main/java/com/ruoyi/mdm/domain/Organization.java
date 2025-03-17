@@ -1,5 +1,10 @@
 package com.ruoyi.mdm.domain;
 
+import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import com.alibaba.excel.annotation.write.style.HeadFontStyle;
+import com.alibaba.excel.annotation.write.style.HeadRowHeight;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
@@ -11,6 +16,10 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * @author Yiming Pu
  * @date 2025-03-14
  */
+@ExcelIgnoreUnannotated // 在导出Excel时，忽略没有被任何注解标注的字段
+@ColumnWidth(16) // 设置列的宽度
+@HeadRowHeight(14) // 设置表头行的高度
+@HeadFontStyle(fontHeightInPoints = 11) // 设置表头字体样式
 public class Organization extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
@@ -20,10 +29,12 @@ public class Organization extends BaseEntity
 
     /** 组织编码 */
     @Excel(name = "组织编码")
+    @ExcelProperty("组织编码")
     private String organizationCode;
 
     /** 组织名称 */
     @Excel(name = "组织名称")
+    @ExcelProperty("组织名称")
     private String organizationName;
 
     public void setId(Long id) 

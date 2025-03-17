@@ -56,7 +56,7 @@ public class OrganizationController extends BaseController {
     public void export(HttpServletResponse response, Organization organization) {
         List<Organization> list = organizationService.selectOrganizationList(organization);
         ExcelUtil<Organization> util = new ExcelUtil<Organization>(Organization.class);
-        util.exportExcel(response, list, "组织管理数据");
+        util.exportEasyExcel(response, list, "组织管理数据");
     }
 
     /**
@@ -67,7 +67,7 @@ public class OrganizationController extends BaseController {
     @PostMapping("/import")
     public AjaxResult excelImport(MultipartFile file) throws Exception {
         ExcelUtil<Organization> util = new ExcelUtil<Organization>(Organization.class);
-        List<Organization> organizationList = util.importExcel(file.getInputStream());
+        List<Organization> organizationList = util.importEasyExcel(file.getInputStream());
         return toAjax(organizationService.insertOrganization(organizationList));
     }
 

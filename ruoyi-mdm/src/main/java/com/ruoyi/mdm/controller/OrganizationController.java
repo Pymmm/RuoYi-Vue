@@ -92,8 +92,11 @@ public class OrganizationController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('mdm:organization:add')")
     @Log(title = "组织管理", businessType = BusinessType.INSERT)
+    @ApiOperation(value = "新增组织管理", notes = "返回新增组织管理结果")
     @PostMapping
-    public AjaxResult add(@RequestBody Organization organization) {
+    public AjaxResult add(
+            @ApiParam(value = "组织管理", required = true)
+            @RequestBody Organization organization) {
         return toAjax(organizationService.insertOrganization(organization));
     }
 

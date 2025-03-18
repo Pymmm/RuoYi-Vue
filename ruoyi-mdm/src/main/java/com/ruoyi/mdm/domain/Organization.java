@@ -5,6 +5,9 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import com.alibaba.excel.annotation.write.style.HeadFontStyle;
 import com.alibaba.excel.annotation.write.style.HeadRowHeight;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
@@ -20,21 +23,25 @@ import com.ruoyi.common.core.domain.BaseEntity;
 @ColumnWidth(16) // 设置列的宽度
 @HeadRowHeight(14) // 设置表头行的高度
 @HeadFontStyle(fontHeightInPoints = 11) // 设置表头字体样式
+@ApiModel(description = "组织管理对象")
 public class Organization extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
     /** 组织ID */
+    @ApiModelProperty(value = "组织ID")
     private Long id;
 
     /** 组织编码 */
     @Excel(name = "组织编码")
     @ExcelProperty("组织编码")
+    @ApiModelProperty(value = "组织编码")
     private String organizationCode;
 
     /** 组织名称 */
     @Excel(name = "组织名称")
     @ExcelProperty("组织名称")
+    @ApiModelProperty(value = "组织名称")
     private String organizationName;
 
     public void setId(Long id) 

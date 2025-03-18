@@ -82,8 +82,11 @@ public class OrganizationController extends BaseController {
      * 获取组织管理详细信息
      */
     @PreAuthorize("@ss.hasPermi('mdm:organization:query')")
+    @ApiOperation(value = "获取组织管理详细信息", notes = "返回组织管理详细信息")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id) {
+    public AjaxResult getInfo(
+            @ApiParam(value = "组织ID", required = true)
+            @PathVariable("id") Long id) {
         return success(organizationService.selectOrganizationById(id));
     }
 
@@ -92,11 +95,8 @@ public class OrganizationController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('mdm:organization:add')")
     @Log(title = "组织管理", businessType = BusinessType.INSERT)
-    @ApiOperation(value = "新增组织管理", notes = "返回新增组织管理结果")
     @PostMapping
-    public AjaxResult add(
-            @ApiParam(value = "组织管理", required = true)
-            @RequestBody Organization organization) {
+    public AjaxResult add(@RequestBody Organization organization) {
         return toAjax(organizationService.insertOrganization(organization));
     }
 

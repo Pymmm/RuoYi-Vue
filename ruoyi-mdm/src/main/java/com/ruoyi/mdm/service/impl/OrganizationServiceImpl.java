@@ -101,7 +101,7 @@ public class OrganizationServiceImpl implements IOrganizationService
      * @return 结果
      */
     @Override
-    public int insertOrganization(List<Organization> organizationList) {
-        return organizationMapper.insertOrganization(organizationList);
+    public int insertOrganizations(List<Organization> organizationList) {
+        return organizationMapper.insertOrganizations(organizationList);
     }
 }

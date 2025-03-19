@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.mdm.mapper.OrganizationMapper">
     
     <resultMap type="Organization" id="OrganizationResult">
@@ -26,17 +26,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="organizationName != null  and organizationName != ''"> and organization_name like concat('%', #{organizationName}, '%')</if>
         </where>
     </select>
-    
+
     <select id="selectOrganizationById" parameterType="Long" resultMap="OrganizationResult">
         <include refid="selectOrganizationVo"/>
         where id = #{id}
     </select>
+    <!-- 单条数据新增 -->
+    <insert id="insertOrganization" parameterType="Organization" useGeneratedKeys="true" keyProperty="id">
+        insert into mdm_organization
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="organizationCode != null and organizationCode != ''">organization_code,</if>
+            <if test="organizationName != null and organizationName != ''">organization_name,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="organizationCode != null and organizationCode != ''">#{organizationCode},</if>
+            <if test="organizationName != null and organizationName != ''">#{organizationName},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
 
-    <!-- 修改：批量插入 -->
-    <insert id="insertOrganization" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    <!-- 新增：批量插入 -->
+    <insert id="insertOrganizations" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
         insert into mdm_organization (organization_code, organization_name)
         values
-        <foreach collection="list" item="org" separator=",">
+        <foreach item="org" index="index" collection="list" separator=",">
             (#{org.organizationCode}, #{org.organizationName})
         </foreach>
     </insert>

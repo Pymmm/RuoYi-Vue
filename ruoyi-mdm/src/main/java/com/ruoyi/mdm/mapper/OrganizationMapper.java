@@ -65,5 +65,5 @@ public interface OrganizationMapper
      * @param organizationList
      * @return 结果
      */
-    public int insertOrganization(List<Organization> organizationList);
+    public int insertOrganizations(List<Organization> organizationList);
 }

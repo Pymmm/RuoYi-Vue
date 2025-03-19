@@ -75,7 +75,7 @@ public class OrganizationController extends BaseController {
     public AjaxResult excelImport(MultipartFile file) throws Exception {
         ExcelUtil<Organization> util = new ExcelUtil<Organization>(Organization.class);
         List<Organization> organizationList = util.importEasyExcel(file.getInputStream());
-        return toAjax(organizationService.insertOrganization(organizationList));
+        return toAjax(organizationService.insertOrganizations(organizationList));
     }
 
     /**

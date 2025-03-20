@@ -31,6 +31,23 @@ CREATE TRIGGER before_insert_department
     ON mdm_department
     FOR EACH ROW
 BEGIN
+    -- 处理空字符串为 NULL
+    IF NEW.unit_code = '' THEN
+        SET NEW.unit_code = NULL;
+    END IF;
+
+    IF NEW.unit_name = '' THEN
+        SET NEW.unit_name = NULL;
+    END IF;
+
+    IF NEW.sub_unit_code = '' THEN
+        SET NEW.sub_unit_code = NULL;
+    END IF;
+
+    IF NEW.sub_unit_name = '' THEN
+        SET NEW.sub_unit_name = NULL;
+    END IF;
+
     -- 确保 department_code 正确
     IF NEW.department_code <>
        CONCAT(NEW.organization_code, IFNULL(NEW.unit_code, ''), IFNULL(NEW.sub_unit_code, '')) THEN
@@ -64,6 +81,23 @@ CREATE TRIGGER before_update_department
     ON mdm_department
     FOR EACH ROW
 BEGIN
+    -- 处理空字符串为 NULL
+    IF NEW.unit_code = '' THEN
+        SET NEW.unit_code = NULL;
+    END IF;
+
+    IF NEW.unit_name = '' THEN
+        SET NEW.unit_name = NULL;
+    END IF;
+
+    IF NEW.sub_unit_code = '' THEN
+        SET NEW.sub_unit_code = NULL;
+    END IF;
+
+    IF NEW.sub_unit_name = '' THEN
+        SET NEW.sub_unit_name = NULL;
+    END IF;
+
     -- 确保 department_code 正确（如果发生变更）
     IF NEW.department_code <>
        CONCAT(NEW.organization_code, IFNULL(NEW.unit_code, ''), IFNULL(NEW.sub_unit_code, '')) THEN

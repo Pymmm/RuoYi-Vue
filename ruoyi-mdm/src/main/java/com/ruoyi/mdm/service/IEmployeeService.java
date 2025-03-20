@@ -58,4 +58,12 @@ public interface IEmployeeService
      * @return 结果
      */
     public int deleteEmployeeById(Long id);
+
+    /**
+     * 新增：批量插入人员管理
+     *
+     * @param employeeList
+     * @return 结果
+     */
+    public int insertEmployees(List<Employee> employeeList);
 }

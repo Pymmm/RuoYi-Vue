@@ -93,4 +93,15 @@ public class EmployeeServiceImpl implements IEmployeeService
     {
         return employeeMapper.deleteEmployeeById(id);
     }
+
+    /**
+     * 新增：批量插入人员管理
+     *
+     * @param employeeList
+     * @return 结果
+     */
+    @Override
+    public int insertEmployees(List<Employee> employeeList) {
+        return employeeMapper.insertEmployees(employeeList);
+    }
 }

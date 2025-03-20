@@ -54,6 +54,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
     </insert>
 
+    <!-- 新增：批量插入 -->
+    <insert id="insertEmployees" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into mdm_employee (employee_code, employee_name)
+        values
+        <foreach item="employee" index="index" collection="list" separator=",">
+            (#{employee.employeeCode}, #{employee.employeeName})
+        </foreach>
+    </insert>
+
     <update id="updateEmployee" parameterType="Employee">
         update mdm_employee
         <trim prefix="SET" suffixOverrides=",">

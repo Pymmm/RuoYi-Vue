@@ -58,4 +58,12 @@ public interface EmployeeMapper
      * @return 结果
      */
     public int deleteEmployeeByIds(Long[] ids);
+
+    /**
+     * 新增：批量插入人员管理
+     *
+     * @param employeeList
+     * @return 结果
+     */
+    public int insertEmployees(List<Employee> employeeList);
 }

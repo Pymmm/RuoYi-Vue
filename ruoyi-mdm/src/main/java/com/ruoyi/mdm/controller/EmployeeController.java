@@ -1,5 +1,7 @@
 package com.ruoyi.mdm.controller;
 
+//新增：引入（否则会引起MultipartFile报错，暂时不知道是不是Spring Web依赖的问题）
+import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -57,6 +59,18 @@ public class EmployeeController extends BaseController
         List<Employee> list = employeeService.selectEmployeeList(employee);
         ExcelUtil<Employee> util = new ExcelUtil<Employee>(Employee.class);
         util.exportExcel(response, list, "员工管理数据");
+    }
+
+    /**
+     * 新增：导入人员管理列表
+     */
+    @PreAuthorize("@ss.hasPermi('mdm:employee:add')")
+    @Log(title = "人员管理", businessType = BusinessType.IMPORT)
+    @PostMapping("/import")
+    public AjaxResult excelImport(MultipartFile file) throws Exception {
+        ExcelUtil<Employee> util = new ExcelUtil<Employee>(Employee.class);
+        List<Employee> employeeList = util.importExcel(file.getInputStream());
+        return toAjax(employeeService.insertEmployees(employeeList));
     }
 
     /**

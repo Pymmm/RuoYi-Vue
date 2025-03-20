@@ -74,6 +74,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
     </insert>
 
+    <!-- 新增：批量插入 -->
+    <insert id="insertDepartments" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into mdm_department (organization_code, organization_name, unit_code, unit_name, sub_unit_code, sub_unit_name)
+        values
+        <foreach item="dept" index="index" collection="list" separator=",">
+            (#{dept.organizationCode}, #{dept.organizationName}, #{dept.unitCode}, #{dept.unitName}, #{dept.subUnitCode}, #{dept.subUnitName})
+        </foreach>
+    </insert>
+
     <update id="updateDepartment" parameterType="Department">
         update mdm_department
         <trim prefix="SET" suffixOverrides=",">

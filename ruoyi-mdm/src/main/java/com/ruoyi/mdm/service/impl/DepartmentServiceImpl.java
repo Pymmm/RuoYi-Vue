@@ -93,4 +93,15 @@ public class DepartmentServiceImpl implements IDepartmentService
     {
         return departmentMapper.deleteDepartmentById(id);
     }
+
+    /**
+     * 新增：批量插入组织管理
+     *
+     * @param departmentList
+     * @return 结果
+     */
+    @Override
+    public int insertDepartments(List<Department> departmentList) {
+        return departmentMapper.insertDepartments(departmentList);
+    }
 }

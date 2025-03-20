@@ -58,4 +58,12 @@ public interface DepartmentMapper
      * @return 结果
      */
     public int deleteDepartmentByIds(Long[] ids);
+
+    /**
+     * 新增：批量插入组织管理
+     *
+     * @param departmentList
+     * @return 结果
+     */
+    public int insertDepartments(List<Department> departmentList);
 }

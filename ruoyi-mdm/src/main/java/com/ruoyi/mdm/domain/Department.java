@@ -7,7 +7,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
  * 部门管理对象 mdm_department
- * 
+ *
  * @author Yiming Pu
  * @date 2025-03-20
  */
@@ -46,82 +46,82 @@ public class Department extends BaseEntity
     @Excel(name = "二级单位")
     private String subUnitName;
 
-    public void setId(Long id) 
+    public void setId(Long id)
     {
         this.id = id;
     }
 
-    public Long getId() 
+    public Long getId()
     {
         return id;
     }
 
-    public void setDepartmentCode(String departmentCode) 
+    public void setDepartmentCode(String departmentCode)
     {
         this.departmentCode = departmentCode;
     }
 
-    public String getDepartmentCode() 
+    public String getDepartmentCode()
     {
         return departmentCode;
     }
 
-    public void setOrganizationCode(String organizationCode) 
+    public void setOrganizationCode(String organizationCode)
     {
         this.organizationCode = organizationCode;
     }
 
-    public String getOrganizationCode() 
+    public String getOrganizationCode()
     {
         return organizationCode;
     }
 
-    public void setOrganizationName(String organizationName) 
+    public void setOrganizationName(String organizationName)
     {
         this.organizationName = organizationName;
     }
 
-    public String getOrganizationName() 
+    public String getOrganizationName()
     {
         return organizationName;
     }
 
-    public void setUnitCode(String unitCode) 
+    public void setUnitCode(String unitCode)
     {
         this.unitCode = unitCode;
     }
 
-    public String getUnitCode() 
+    public String getUnitCode()
     {
         return unitCode;
     }
 
-    public void setUnitName(String unitName) 
+    public void setUnitName(String unitName)
     {
         this.unitName = unitName;
     }
 
-    public String getUnitName() 
+    public String getUnitName()
     {
         return unitName;
     }
 
-    public void setSubUnitCode(String subUnitCode) 
+    public void setSubUnitCode(String subUnitCode)
     {
         this.subUnitCode = subUnitCode;
     }
 
-    public String getSubUnitCode() 
+    public String getSubUnitCode()
     {
         return subUnitCode;
     }
 
-    public void setSubUnitName(String subUnitName) 
+    public void setSubUnitName(String subUnitName)
     {
         this.subUnitName = subUnitName;
     }
 
-    public String getSubUnitName() 
+    public String getSubUnitName()
     {
         return subUnitName;
     }
@@ -129,19 +129,19 @@ public class Department extends BaseEntity
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
-            .append("departmentCode", getDepartmentCode())
-            .append("organizationCode", getOrganizationCode())
-            .append("organizationName", getOrganizationName())
-            .append("unitCode", getUnitCode())
-            .append("unitName", getUnitName())
-            .append("subUnitCode", getSubUnitCode())
-            .append("subUnitName", getSubUnitName())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
-            .toString();
+                .append("id", getId())
+                .append("departmentCode", getDepartmentCode())
+                .append("organizationCode", getOrganizationCode())
+                .append("organizationName", getOrganizationName())
+                .append("unitCode", getUnitCode())
+                .append("unitName", getUnitName())
+                .append("subUnitCode", getSubUnitCode())
+                .append("subUnitName", getSubUnitName())
+                .append("createBy", getCreateBy())
+                .append("createTime", getCreateTime())
+                .append("updateBy", getUpdateBy())
+                .append("updateTime", getUpdateTime())
+                .append("remark", getRemark())
+                .toString();
     }
 }

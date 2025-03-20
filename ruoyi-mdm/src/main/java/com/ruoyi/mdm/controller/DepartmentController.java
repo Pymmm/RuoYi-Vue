@@ -25,7 +25,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 部门管理Controller
- * 
+ *
  * @author Yiming Pu
  * @date 2025-03-20
  */
@@ -110,7 +110,7 @@ public class DepartmentController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mdm:department:remove')")
     @Log(title = "部门管理", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
+    @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
         return toAjax(departmentService.deleteDepartmentByIds(ids));

@@ -5,15 +5,15 @@ import com.ruoyi.mdm.domain.Department;
 
 /**
  * 部门管理Mapper接口
- * 
+ *
  * @author Yiming Pu
  * @date 2025-03-20
  */
-public interface DepartmentMapper 
+public interface DepartmentMapper
 {
     /**
      * 查询部门管理
-     * 
+     *
      * @param id 部门管理主键
      * @return 部门管理
      */
@@ -21,7 +21,7 @@ public interface DepartmentMapper
 
     /**
      * 查询部门管理列表
-     * 
+     *
      * @param department 部门管理
      * @return 部门管理集合
      */
@@ -29,7 +29,7 @@ public interface DepartmentMapper
 
     /**
      * 新增部门管理
-     * 
+     *
      * @param department 部门管理
      * @return 结果
      */
@@ -37,7 +37,7 @@ public interface DepartmentMapper
 
     /**
      * 修改部门管理
-     * 
+     *
      * @param department 部门管理
      * @return 结果
      */
@@ -45,7 +45,7 @@ public interface DepartmentMapper
 
     /**
      * 删除部门管理
-     * 
+     *
      * @param id 部门管理主键
      * @return 结果
      */
@@ -53,7 +53,7 @@ public interface DepartmentMapper
 
     /**
      * 批量删除部门管理
-     * 
+     *
      * @param ids 需要删除的数据主键集合
      * @return 结果
      */

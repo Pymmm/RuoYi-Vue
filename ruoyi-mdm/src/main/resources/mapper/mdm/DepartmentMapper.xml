@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.mdm.mapper.DepartmentMapper">
-    
+
     <resultMap type="Department" id="DepartmentResult">
         <result property="id"    column="id"    />
         <result property="departmentCode"    column="department_code"    />
@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectDepartmentList" parameterType="Department" resultMap="DepartmentResult">
         <include refid="selectDepartmentVo"/>
-        <where>  
+        <where>
             <if test="departmentCode != null  and departmentCode != ''"> and department_code like concat('%', #{departmentCode}, '%')</if>
             <if test="organizationCode != null  and organizationCode != ''"> and organization_code like concat('%', #{organizationCode}, '%')</if>
             <if test="organizationName != null  and organizationName != ''"> and organization_name like concat('%', #{organizationName}, '%')</if>
@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="subUnitName != null  and subUnitName != ''"> and sub_unit_name like concat('%', #{subUnitName}, '%')</if>
         </where>
     </select>
-    
+
     <select id="selectDepartmentById" parameterType="Long" resultMap="DepartmentResult">
         <include refid="selectDepartmentVo"/>
         where id = #{id}
@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="insertDepartment" parameterType="Department" useGeneratedKeys="true" keyProperty="id">
         insert into mdm_department
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="departmentCode != null">department_code,</if>
+            <if test="departmentCode != null and departmentCode != ''">department_code,</if>
             <if test="organizationCode != null and organizationCode != ''">organization_code,</if>
             <if test="organizationName != null and organizationName != ''">organization_name,</if>
             <if test="unitCode != null">unit_code,</if>
@@ -57,9 +57,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateBy != null">update_by,</if>
             <if test="updateTime != null">update_time,</if>
             <if test="remark != null">remark,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="departmentCode != null">#{departmentCode},</if>
+            <if test="departmentCode != null and departmentCode != ''">#{departmentCode},</if>
             <if test="organizationCode != null and organizationCode != ''">#{organizationCode},</if>
             <if test="organizationName != null and organizationName != ''">#{organizationName},</if>
             <if test="unitCode != null">#{unitCode},</if>
@@ -71,22 +71,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateBy != null">#{updateBy},</if>
             <if test="updateTime != null">#{updateTime},</if>
             <if test="remark != null">#{remark},</if>
-         </trim>
+        </trim>
     </insert>
 
     <!-- 新增：批量插入 -->
     <insert id="insertDepartments" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
-        insert into mdm_department (organization_code, organization_name, unit_code, unit_name, sub_unit_code, sub_unit_name)
+        insert into mdm_department (department_code, organization_code, organization_name, unit_code, unit_name, sub_unit_code, sub_unit_name)
         values
         <foreach item="dept" index="index" collection="list" separator=",">
-            (#{dept.organizationCode}, #{dept.organizationName}, #{dept.unitCode}, #{dept.unitName}, #{dept.subUnitCode}, #{dept.subUnitName})
+            (#{dept.departmentCode}, #{dept.organizationCode}, #{dept.organizationName}, #{dept.unitCode}, #{dept.unitName}, #{dept.subUnitCode}, #{dept.subUnitName})
         </foreach>
     </insert>
 
     <update id="updateDepartment" parameterType="Department">
         update mdm_department
         <trim prefix="SET" suffixOverrides=",">
-            <if test="departmentCode != null">department_code = #{departmentCode},</if>
+            <if test="departmentCode != null and departmentCode != ''">department_code = #{departmentCode},</if>
             <if test="organizationCode != null and organizationCode != ''">organization_code = #{organizationCode},</if>
             <if test="organizationName != null and organizationName != ''">organization_name = #{organizationName},</if>
             <if test="unitCode != null">unit_code = #{unitCode},</if>
@@ -107,7 +107,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteDepartmentByIds" parameterType="String">
-        delete from mdm_department where id in 
+        delete from mdm_department where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

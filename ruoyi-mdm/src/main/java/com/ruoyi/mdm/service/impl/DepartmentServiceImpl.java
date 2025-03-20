@@ -10,19 +10,19 @@ import com.ruoyi.mdm.service.IDepartmentService;
 
 /**
  * 部门管理Service业务层处理
- * 
+ *
  * @author Yiming Pu
  * @date 2025-03-20
  */
 @Service
-public class DepartmentServiceImpl implements IDepartmentService 
+public class DepartmentServiceImpl implements IDepartmentService
 {
     @Autowired
     private DepartmentMapper departmentMapper;
 
     /**
      * 查询部门管理
-     * 
+     *
      * @param id 部门管理主键
      * @return 部门管理
      */
@@ -34,7 +34,7 @@ public class DepartmentServiceImpl implements IDepartmentService
 
     /**
      * 查询部门管理列表
-     * 
+     *
      * @param department 部门管理
      * @return 部门管理
      */
@@ -46,7 +46,7 @@ public class DepartmentServiceImpl implements IDepartmentService
 
     /**
      * 新增部门管理
-     * 
+     *
      * @param department 部门管理
      * @return 结果
      */
@@ -59,7 +59,7 @@ public class DepartmentServiceImpl implements IDepartmentService
 
     /**
      * 修改部门管理
-     * 
+     *
      * @param department 部门管理
      * @return 结果
      */
@@ -72,7 +72,7 @@ public class DepartmentServiceImpl implements IDepartmentService
 
     /**
      * 批量删除部门管理
-     * 
+     *
      * @param ids 需要删除的部门管理主键
      * @return 结果
      */
@@ -84,7 +84,7 @@ public class DepartmentServiceImpl implements IDepartmentService
 
     /**
      * 删除部门管理信息
-     * 
+     *
      * @param id 部门管理主键
      * @return 结果
      */

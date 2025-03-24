@@ -7,7 +7,7 @@ import com.ruoyi.mdm.domain.Employee;
  * 员工管理Mapper接口
  * 
  * @author Yiming Pu
- * @date 2025-03-20
+ * @date 2025-03-24
  */
 public interface EmployeeMapper 
 {

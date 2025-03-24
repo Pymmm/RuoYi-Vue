@@ -9,7 +9,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 员工管理对象 mdm_employee
  * 
  * @author Yiming Pu
- * @date 2025-03-20
+ * @date 2025-03-24
  */
 public class Employee extends BaseEntity
 {

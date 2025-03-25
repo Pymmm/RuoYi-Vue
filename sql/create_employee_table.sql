@@ -13,7 +13,9 @@ CREATE TABLE mdm_employee
     create_time   DATETIME     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     update_by     VARCHAR(64)  DEFAULT NULL COMMENT '更新者',
     update_time   DATETIME     DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    remark        VARCHAR(500) DEFAULT NULL COMMENT '备注'
+    remark        VARCHAR(500) DEFAULT NULL COMMENT '备注',
+    CONSTRAINT chk_emp_code_format CHECK (employee_code REGEXP '^6[0-9]{4}$')
+
 ) COMMENT ='员工表';
 
 -- ----------------------------

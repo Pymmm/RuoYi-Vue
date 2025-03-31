@@ -17,33 +17,6 @@ CREATE TABLE mdm_employee
 ) COMMENT ='员工表' AUTO_INCREMENT = 60001;
 
 -- ----------------------------
--- 触发器，限制员工编码范围（60001~69999）
--- ----------------------------
-/*DELIMITER //
-
-CREATE TRIGGER trg_employee_code_limit
-    BEFORE INSERT
-    ON mdm_employee
-    FOR EACH ROW
-BEGIN
-    DECLARE next_code BIGINT;
-
-    SELECT AUTO_INCREMENT
-    INTO next_code
-    FROM information_schema.TABLES
-    WHERE table_name = 'mdm_employee'
-      AND table_schema = DATABASE();
-
-    IF next_code > 69999 THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = '员工编码已达上限：69999，禁止新增';
-    END IF;
-END;
-//
-
-DELIMITER ;*/
-
--- ----------------------------
 -- 员工表初始化数据
 -- ----------------------------
 INSERT INTO mdm_employee (employee_code, employee_name)

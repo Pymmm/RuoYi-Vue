@@ -62,10 +62,10 @@ public class EmployeeController extends BaseController
     }
 
     /**
-     * 新增：导入人员管理列表
+     * 新增：导入员工管理列表
      */
     @PreAuthorize("@ss.hasPermi('mdm:employee:add')")
-    @Log(title = "人员管理", businessType = BusinessType.IMPORT)
+    @Log(title = "员工管理", businessType = BusinessType.IMPORT)
     @PostMapping("/import")
     public AjaxResult excelImport(MultipartFile file) throws Exception {
         ExcelUtil<Employee> util = new ExcelUtil<Employee>(Employee.class);

@@ -60,7 +60,7 @@ public interface IEmployeeService
     public int deleteEmployeeByEmployeeCode(Long employeeCode);
 
     /**
-     * 新增：批量插入人员管理
+     * 新增：批量插入员工管理
      *
      * @param employeeList
      * @return 结果

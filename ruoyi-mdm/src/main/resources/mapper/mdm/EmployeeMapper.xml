@@ -5,7 +5,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.ruoyi.mdm.mapper.EmployeeMapper">
     
     <resultMap type="Employee" id="EmployeeResult">
-        <result property="id"    column="id"    />
         <result property="employeeCode"    column="employee_code"    />
         <result property="employeeName"    column="employee_name"    />
         <result property="createBy"    column="create_by"    />
@@ -16,26 +15,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectEmployeeVo">
-        select id, employee_code, employee_name, create_by, create_time, update_by, update_time, remark from mdm_employee
+        select employee_code, employee_name, create_by, create_time, update_by, update_time, remark from mdm_employee
     </sql>
 
     <select id="selectEmployeeList" parameterType="Employee" resultMap="EmployeeResult">
         <include refid="selectEmployeeVo"/>
         <where>  
-            <if test="employeeCode != null  and employeeCode != ''"> and employee_code like concat('%', #{employeeCode}, '%')</if>
+            <if test="employeeCode != null "> and employee_code like concat('%', #{employeeCode}, '%')</if>
             <if test="employeeName != null  and employeeName != ''"> and employee_name like concat('%', #{employeeName}, '%')</if>
         </where>
     </select>
     
-    <select id="selectEmployeeById" parameterType="Long" resultMap="EmployeeResult">
+    <select id="selectEmployeeByEmployeeCode" parameterType="Long" resultMap="EmployeeResult">
         <include refid="selectEmployeeVo"/>
-        where id = #{id}
+        where employee_code = #{employeeCode}
     </select>
 
-    <insert id="insertEmployee" parameterType="Employee" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertEmployee" parameterType="Employee" useGeneratedKeys="true" keyProperty="employeeCode">
         insert into mdm_employee
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="employeeCode != null and employeeCode != ''">employee_code,</if>
             <if test="employeeName != null and employeeName != ''">employee_name,</if>
             <if test="createBy != null">create_by,</if>
             <if test="createTime != null">create_time,</if>
@@ -44,7 +42,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="remark != null">remark,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="employeeCode != null and employeeCode != ''">#{employeeCode},</if>
             <if test="employeeName != null and employeeName != ''">#{employeeName},</if>
             <if test="createBy != null">#{createBy},</if>
             <if test="createTime != null">#{createTime},</if>
@@ -55,18 +52,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
 
     <!-- 新增：批量插入 -->
-    <insert id="insertEmployees" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
-        insert into mdm_employee (employee_code, employee_name)
+    <insert id="insertEmployees" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="employee_code">
+        insert into mdm_employee (employee_name)
         values
         <foreach item="employee" index="index" collection="list" separator=",">
-            (#{employee.employeeCode}, #{employee.employeeName})
+            (#{employee.employeeName})
         </foreach>
     </insert>
 
     <update id="updateEmployee" parameterType="Employee">
         update mdm_employee
         <trim prefix="SET" suffixOverrides=",">
-            <if test="employeeCode != null and employeeCode != ''">employee_code = #{employeeCode},</if>
             <if test="employeeName != null and employeeName != ''">employee_name = #{employeeName},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
@@ -74,17 +70,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="remark != null">remark = #{remark},</if>
         </trim>
-        where id = #{id}
+        where employee_code = #{employeeCode}
     </update>
 
-    <delete id="deleteEmployeeById" parameterType="Long">
-        delete from mdm_employee where id = #{id}
+    <delete id="deleteEmployeeByEmployeeCode" parameterType="Long">
+        delete from mdm_employee where employee_code = #{employeeCode}
     </delete>
 
-    <delete id="deleteEmployeeByIds" parameterType="String">
-        delete from mdm_employee where id in 
-        <foreach item="id" collection="array" open="(" separator="," close=")">
-            #{id}
+    <delete id="deleteEmployeeByEmployeeCodes" parameterType="String">
+        delete from mdm_employee where employee_code in 
+        <foreach item="employeeCode" collection="array" open="(" separator="," close=")">
+            #{employeeCode}
         </foreach>
     </delete>
 </mapper>

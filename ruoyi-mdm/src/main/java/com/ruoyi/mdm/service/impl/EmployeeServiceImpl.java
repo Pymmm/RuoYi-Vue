@@ -12,7 +12,7 @@ import com.ruoyi.mdm.service.IEmployeeService;
  * 员工管理Service业务层处理
  * 
  * @author Yiming Pu
- * @date 2025-03-24
+ * @date 2025-03-31
  */
 @Service
 public class EmployeeServiceImpl implements IEmployeeService 
@@ -23,13 +23,13 @@ public class EmployeeServiceImpl implements IEmployeeService
     /**
      * 查询员工管理
      * 
-     * @param id 员工管理主键
+     * @param employeeCode 员工管理主键
      * @return 员工管理
      */
     @Override
-    public Employee selectEmployeeById(Long id)
+    public Employee selectEmployeeByEmployeeCode(Long employeeCode)
     {
-        return employeeMapper.selectEmployeeById(id);
+        return employeeMapper.selectEmployeeByEmployeeCode(employeeCode);
     }
 
     /**
@@ -73,25 +73,25 @@ public class EmployeeServiceImpl implements IEmployeeService
     /**
      * 批量删除员工管理
      * 
-     * @param ids 需要删除的员工管理主键
+     * @param employeeCodes 需要删除的员工管理主键
      * @return 结果
      */
     @Override
-    public int deleteEmployeeByIds(Long[] ids)
+    public int deleteEmployeeByEmployeeCodes(Long[] employeeCodes)
     {
-        return employeeMapper.deleteEmployeeByIds(ids);
+        return employeeMapper.deleteEmployeeByEmployeeCodes(employeeCodes);
     }
 
     /**
      * 删除员工管理信息
      * 
-     * @param id 员工管理主键
+     * @param employeeCode 员工管理主键
      * @return 结果
      */
     @Override
-    public int deleteEmployeeById(Long id)
+    public int deleteEmployeeByEmployeeCode(Long employeeCode)
     {
-        return employeeMapper.deleteEmployeeById(id);
+        return employeeMapper.deleteEmployeeByEmployeeCode(employeeCode);
     }
 
     /**

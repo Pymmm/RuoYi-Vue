@@ -5,23 +5,23 @@ import com.ruoyi.mdm.domain.Employee;
 
 /**
  * 员工管理Mapper接口
- * 
+ *
  * @author Yiming Pu
- * @date 2025-03-24
+ * @date 2025-03-31
  */
-public interface EmployeeMapper 
+public interface EmployeeMapper
 {
     /**
      * 查询员工管理
-     * 
-     * @param id 员工管理主键
+     *
+     * @param employeeCode 员工管理主键
      * @return 员工管理
      */
-    public Employee selectEmployeeById(Long id);
+    public Employee selectEmployeeByEmployeeCode(Long employeeCode);
 
     /**
      * 查询员工管理列表
-     * 
+     *
      * @param employee 员工管理
      * @return 员工管理集合
      */
@@ -29,7 +29,7 @@ public interface EmployeeMapper
 
     /**
      * 新增员工管理
-     * 
+     *
      * @param employee 员工管理
      * @return 结果
      */
@@ -37,7 +37,7 @@ public interface EmployeeMapper
 
     /**
      * 修改员工管理
-     * 
+     *
      * @param employee 员工管理
      * @return 结果
      */
@@ -45,19 +45,19 @@ public interface EmployeeMapper
 
     /**
      * 删除员工管理
-     * 
-     * @param id 员工管理主键
+     *
+     * @param employeeCode 员工管理主键
      * @return 结果
      */
-    public int deleteEmployeeById(Long id);
+    public int deleteEmployeeByEmployeeCode(Long employeeCode);
 
     /**
      * 批量删除员工管理
-     * 
-     * @param ids 需要删除的数据主键集合
+     *
+     * @param employeeCodes 需要删除的数据主键集合
      * @return 结果
      */
-    public int deleteEmployeeByIds(Long[] ids);
+    public int deleteEmployeeByEmployeeCodes(Long[] employeeCodes);
 
     /**
      * 新增：批量插入人员管理

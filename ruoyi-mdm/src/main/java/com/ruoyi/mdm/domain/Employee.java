@@ -9,39 +9,26 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 员工管理对象 mdm_employee
  * 
  * @author Yiming Pu
- * @date 2025-03-24
+ * @date 2025-03-31
  */
 public class Employee extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
-    /** 员工ID */
-    private Long id;
-
     /** 员工编码 */
     @Excel(name = "员工编码")
-    private String employeeCode;
+    private Long employeeCode;
 
     /** 员工姓名 */
     @Excel(name = "员工姓名")
     private String employeeName;
 
-    public void setId(Long id) 
-    {
-        this.id = id;
-    }
-
-    public Long getId() 
-    {
-        return id;
-    }
-
-    public void setEmployeeCode(String employeeCode) 
+    public void setEmployeeCode(Long employeeCode) 
     {
         this.employeeCode = employeeCode;
     }
 
-    public String getEmployeeCode() 
+    public Long getEmployeeCode() 
     {
         return employeeCode;
     }
@@ -59,7 +46,6 @@ public class Employee extends BaseEntity
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
             .append("employeeCode", getEmployeeCode())
             .append("employeeName", getEmployeeName())
             .append("createBy", getCreateBy())

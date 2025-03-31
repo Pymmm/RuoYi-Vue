@@ -27,7 +27,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * 员工管理Controller
  * 
  * @author Yiming Pu
- * @date 2025-03-24
+ * @date 2025-03-31
  */
 @RestController
 @RequestMapping("/mdm/employee")
@@ -77,10 +77,10 @@ public class EmployeeController extends BaseController
      * 获取员工管理详细信息
      */
     @PreAuthorize("@ss.hasPermi('mdm:employee:query')")
-    @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id)
+    @GetMapping(value = "/{employeeCode}")
+    public AjaxResult getInfo(@PathVariable("employeeCode") Long employeeCode)
     {
-        return success(employeeService.selectEmployeeById(id));
+        return success(employeeService.selectEmployeeByEmployeeCode(employeeCode));
     }
 
     /**
@@ -110,9 +110,9 @@ public class EmployeeController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mdm:employee:remove')")
     @Log(title = "员工管理", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
+	@DeleteMapping("/{employeeCodes}")
+    public AjaxResult remove(@PathVariable Long[] employeeCodes)
     {
-        return toAjax(employeeService.deleteEmployeeByIds(ids));
+        return toAjax(employeeService.deleteEmployeeByEmployeeCodes(employeeCodes));
     }
 }

@@ -6,17 +6,42 @@ DROP TABLE IF EXISTS mdm_employee;
 
 CREATE TABLE mdm_employee
 (
-    id            BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '员工ID',
-    employee_code VARCHAR(5) UNIQUE NOT NULL COMMENT '员工编码',
-    employee_name VARCHAR(100)      NOT NULL COMMENT '员工姓名',
+    employee_code INT AUTO_INCREMENT PRIMARY KEY COMMENT '员工编码',
+    employee_name VARCHAR(100) NOT NULL COMMENT '员工姓名',
     create_by     VARCHAR(64)  DEFAULT 'admin' COMMENT '创建者',
     create_time   DATETIME     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     update_by     VARCHAR(64)  DEFAULT NULL COMMENT '更新者',
     update_time   DATETIME     DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    remark        VARCHAR(500) DEFAULT NULL COMMENT '备注',
-    CONSTRAINT chk_emp_code_format CHECK (employee_code REGEXP '^6[0-9]{4}$')
+    remark        VARCHAR(500) DEFAULT NULL COMMENT '备注'
 
-) COMMENT ='员工表';
+) COMMENT ='员工表' AUTO_INCREMENT = 60001;
+
+-- ----------------------------
+-- 触发器，限制员工编码范围（60001~69999）
+-- ----------------------------
+/*DELIMITER //
+
+CREATE TRIGGER trg_employee_code_limit
+    BEFORE INSERT
+    ON mdm_employee
+    FOR EACH ROW
+BEGIN
+    DECLARE next_code BIGINT;
+
+    SELECT AUTO_INCREMENT
+    INTO next_code
+    FROM information_schema.TABLES
+    WHERE table_name = 'mdm_employee'
+      AND table_schema = DATABASE();
+
+    IF next_code > 69999 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = '员工编码已达上限：69999，禁止新增';
+    END IF;
+END;
+//
+
+DELIMITER ;*/
 
 -- ----------------------------
 -- 员工表初始化数据

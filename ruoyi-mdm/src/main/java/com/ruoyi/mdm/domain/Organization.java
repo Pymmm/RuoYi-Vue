@@ -35,13 +35,13 @@ public class Organization extends BaseEntity
     /** 组织编码 */
     @Excel(name = "组织编码")
     @ExcelProperty("组织编码")
-    @ApiModelProperty(value = "组织编码")
+    @ApiModelProperty(value = "组织编码", example = "8017")
     private String organizationCode;
 
     /** 组织名称 */
     @Excel(name = "组织名称")
     @ExcelProperty("组织名称")
-    @ApiModelProperty(value = "组织名称")
+    @ApiModelProperty(value = "组织名称", example = "上海ABCD有限公司")
     private String organizationName;
 
     public void setId(Long id) 

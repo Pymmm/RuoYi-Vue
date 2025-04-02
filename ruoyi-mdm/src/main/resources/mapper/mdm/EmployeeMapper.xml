@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.mdm.mapper.EmployeeMapper">
-
+    
     <resultMap type="Employee" id="EmployeeResult">
-        <result property="employeeCode" column="employee_code"/>
-        <result property="employeeName" column="employee_name"/>
-        <result property="createBy" column="create_by"/>
-        <result property="createTime" column="create_time"/>
-        <result property="updateBy" column="update_by"/>
-        <result property="updateTime" column="update_time"/>
-        <result property="remark" column="remark"/>
+        <result property="employeeCode"    column="employee_code"    />
+        <result property="employeeName"    column="employee_name"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
     </resultMap>
 
     <sql id="selectEmployeeVo">
-        select employee_code, employee_name, create_by, create_time, update_by, update_time, remark
-        from mdm_employee
+        select employee_code, employee_name, status, create_by, create_time, update_by, update_time, remark from mdm_employee
     </sql>
 
     <select id="selectEmployeeList" parameterType="Employee" resultMap="EmployeeResult">
         <include refid="selectEmployeeVo"/>
-        <where>
-            <if test="employeeCode != null ">and employee_code like concat('%', #{employeeCode}, '%')</if>
-            <if test="employeeName != null  and employeeName != ''">and employee_name like concat('%', #{employeeName},
-                '%')
-            </if>
+        <where>  
+            <if test="employeeCode != null "> and employee_code like concat('%', #{employeeCode}, '%')</if>
+            <if test="employeeName != null  and employeeName != ''"> and employee_name like concat('%', #{employeeName}, '%')</if>
+            <if test="status != null "> and status = #{status}</if>
         </where>
     </select>
-
+    
     <select id="selectEmployeeByEmployeeCode" parameterType="Long" resultMap="EmployeeResult">
         <include refid="selectEmployeeVo"/>
         where employee_code = #{employeeCode}
@@ -38,20 +37,22 @@
         insert into mdm_employee
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="employeeName != null and employeeName != ''">employee_name,</if>
+            <if test="status != null">status,</if>
             <if test="createBy != null">create_by,</if>
             <if test="createTime != null">create_time,</if>
             <if test="updateBy != null">update_by,</if>
             <if test="updateTime != null">update_time,</if>
             <if test="remark != null">remark,</if>
-        </trim>
+         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="employeeName != null and employeeName != ''">#{employeeName},</if>
+            <if test="status != null">#{status},</if>
             <if test="createBy != null">#{createBy},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="updateBy != null">#{updateBy},</if>
             <if test="updateTime != null">#{updateTime},</if>
             <if test="remark != null">#{remark},</if>
-        </trim>
+         </trim>
     </insert>
 
     <!-- 新增：批量插入 -->
@@ -67,6 +68,7 @@
         update mdm_employee
         <trim prefix="SET" suffixOverrides=",">
             <if test="employeeName != null and employeeName != ''">employee_name = #{employeeName},</if>
+            <if test="status != null">status = #{status},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
@@ -77,13 +79,11 @@
     </update>
 
     <delete id="deleteEmployeeByEmployeeCode" parameterType="Long">
-        delete
-        from mdm_employee
-        where employee_code = #{employeeCode}
+        delete from mdm_employee where employee_code = #{employeeCode}
     </delete>
 
     <delete id="deleteEmployeeByEmployeeCodes" parameterType="String">
-        delete from mdm_employee where employee_code in
+        delete from mdm_employee where employee_code in 
         <foreach item="employeeCode" collection="array" open="(" separator="," close=")">
             #{employeeCode}
         </foreach>

@@ -9,7 +9,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 员工管理对象 mdm_employee
  * 
  * @author Yiming Pu
- * @date 2025-03-31
+ * @date 2025-04-02
  */
 public class Employee extends BaseEntity
 {
@@ -22,6 +22,10 @@ public class Employee extends BaseEntity
     /** 员工姓名 */
     @Excel(name = "员工姓名")
     private String employeeName;
+
+    /** 账号状态 */
+    @Excel(name = "账号状态")
+    private Integer status;
 
     public void setEmployeeCode(Long employeeCode) 
     {
@@ -43,11 +47,22 @@ public class Employee extends BaseEntity
         return employeeName;
     }
 
+    public void setStatus(Integer status) 
+    {
+        this.status = status;
+    }
+
+    public Integer getStatus() 
+    {
+        return status;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("employeeCode", getEmployeeCode())
             .append("employeeName", getEmployeeName())
+            .append("status", getStatus())
             .append("createBy", getCreateBy())
             .append("createTime", getCreateTime())
             .append("updateBy", getUpdateBy())

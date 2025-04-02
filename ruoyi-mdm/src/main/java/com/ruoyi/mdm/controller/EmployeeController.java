@@ -1,9 +1,14 @@
 package com.ruoyi.mdm.controller;
 
 //新增：引入（否则会引起MultipartFile报错，暂时不知道是不是Spring Web依赖的问题）
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,14 +30,14 @@ import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 员工管理Controller
- * 
+ *
  * @author Yiming Pu
  * @date 2025-04-02
  */
 @RestController
 @RequestMapping("/mdm/employee")
-public class EmployeeController extends BaseController
-{
+@Api(tags = "员工管理")
+public class EmployeeController extends BaseController {
     @Autowired
     private IEmployeeService employeeService;
 
@@ -41,8 +46,7 @@ public class EmployeeController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mdm:employee:list')")
     @GetMapping("/list")
-    public TableDataInfo list(Employee employee)
-    {
+    public TableDataInfo list(Employee employee) {
         startPage();
         List<Employee> list = employeeService.selectEmployeeList(employee);
         return getDataTable(list);
@@ -54,8 +58,7 @@ public class EmployeeController extends BaseController
     @PreAuthorize("@ss.hasPermi('mdm:employee:export')")
     @Log(title = "员工管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, Employee employee)
-    {
+    public void export(HttpServletResponse response, Employee employee) {
         List<Employee> list = employeeService.selectEmployeeList(employee);
         ExcelUtil<Employee> util = new ExcelUtil<Employee>(Employee.class);
         util.exportExcel(response, list, "员工管理数据");
@@ -78,8 +81,7 @@ public class EmployeeController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mdm:employee:query')")
     @GetMapping(value = "/{employeeCode}")
-    public AjaxResult getInfo(@PathVariable("employeeCode") Long employeeCode)
-    {
+    public AjaxResult getInfo(@PathVariable("employeeCode") Long employeeCode) {
         return success(employeeService.selectEmployeeByEmployeeCode(employeeCode));
     }
 
@@ -88,9 +90,9 @@ public class EmployeeController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mdm:employee:add')")
     @Log(title = "员工管理", businessType = BusinessType.INSERT)
+    @ApiOperation(value = "新增员工管理", notes = "返回新增员工管理结果")
     @PostMapping
-    public AjaxResult add(@RequestBody Employee employee)
-    {
+    public AjaxResult add(@RequestBody Employee employee) {
         return toAjax(employeeService.insertEmployee(employee));
     }
 
@@ -99,9 +101,9 @@ public class EmployeeController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mdm:employee:edit')")
     @Log(title = "员工管理", businessType = BusinessType.UPDATE)
+    @ApiOperation(value = "修改员工管理", notes = "返回修改员工管理结果")
     @PutMapping
-    public AjaxResult edit(@RequestBody Employee employee)
-    {
+    public AjaxResult edit(@RequestBody Employee employee) {
         return toAjax(employeeService.updateEmployee(employee));
     }
 
@@ -110,9 +112,8 @@ public class EmployeeController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mdm:employee:remove')")
     @Log(title = "员工管理", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{employeeCodes}")
-    public AjaxResult remove(@PathVariable Long[] employeeCodes)
-    {
+    @DeleteMapping("/{employeeCodes}")
+    public AjaxResult remove(@PathVariable Long[] employeeCodes) {
         return toAjax(employeeService.deleteEmployeeByEmployeeCodes(employeeCodes));
     }
 }

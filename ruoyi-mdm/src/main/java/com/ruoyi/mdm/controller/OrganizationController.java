@@ -94,7 +94,6 @@ public class OrganizationController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('mdm:organization:add')")
     @Log(title = "组织管理", businessType = BusinessType.INSERT)
-    @ApiOperation(value = "新增组织管理", notes = "返回新增组织管理结果")
     @PostMapping
     public AjaxResult add(
             @RequestBody Organization organization) {
@@ -106,7 +105,6 @@ public class OrganizationController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('mdm:organization:edit')")
     @Log(title = "组织管理", businessType = BusinessType.UPDATE)
-    @ApiOperation(value = "修改组织管理", notes = "返回修改组织管理结果")
     @PutMapping
     public AjaxResult edit(@RequestBody Organization organization) {
         return toAjax(organizationService.updateOrganization(organization));
@@ -117,7 +115,6 @@ public class OrganizationController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('mdm:organization:remove')")
     @Log(title = "组织管理", businessType = BusinessType.DELETE)
-    @ApiOperation(value = "删除组织", notes = "返回删除组织管理结果")
     @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(organizationService.deleteOrganizationByIds(ids));

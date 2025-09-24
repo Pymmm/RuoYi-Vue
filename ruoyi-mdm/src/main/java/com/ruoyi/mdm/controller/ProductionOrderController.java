@@ -28,7 +28,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * @date 2025-09-24
  */
 @RestController
-@RequestMapping("/mdm/order")
+@RequestMapping("/mdm/productionOrder")
 public class ProductionOrderController extends BaseController
 {
     @Autowired
@@ -37,7 +37,7 @@ public class ProductionOrderController extends BaseController
     /**
      * 查询生产订单管理列表
      */
-    @PreAuthorize("@ss.hasPermi('mdm:order:list')")
+    @PreAuthorize("@ss.hasPermi('mdm:productionOrder:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProductionOrder productionOrder)
     {
@@ -49,7 +49,7 @@ public class ProductionOrderController extends BaseController
     /**
      * 导出生产订单管理列表
      */
-    @PreAuthorize("@ss.hasPermi('mdm:order:export')")
+    @PreAuthorize("@ss.hasPermi('mdm:productionOrder:export')")
     @Log(title = "生产订单管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, ProductionOrder productionOrder)
@@ -62,7 +62,7 @@ public class ProductionOrderController extends BaseController
     /**
      * 获取生产订单管理详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mdm:order:query')")
+    @PreAuthorize("@ss.hasPermi('mdm:productionOrder:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
@@ -72,7 +72,7 @@ public class ProductionOrderController extends BaseController
     /**
      * 新增生产订单管理
      */
-    @PreAuthorize("@ss.hasPermi('mdm:order:add')")
+    @PreAuthorize("@ss.hasPermi('mdm:productionOrder:add')")
     @Log(title = "生产订单管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody ProductionOrder productionOrder)
@@ -83,7 +83,7 @@ public class ProductionOrderController extends BaseController
     /**
      * 修改生产订单管理
      */
-    @PreAuthorize("@ss.hasPermi('mdm:order:edit')")
+    @PreAuthorize("@ss.hasPermi('mdm:productionOrder:edit')")
     @Log(title = "生产订单管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody ProductionOrder productionOrder)
@@ -94,7 +94,7 @@ public class ProductionOrderController extends BaseController
     /**
      * 删除生产订单管理
      */
-    @PreAuthorize("@ss.hasPermi('mdm:order:remove')")
+    @PreAuthorize("@ss.hasPermi('mdm:productionOrder:remove')")
     @Log(title = "生产订单管理", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)

@@ -48,12 +48,12 @@ public class ProductionOrder extends BaseEntity
     @Excel(name = "交期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date deliveryDate;
 
-    /** 是否优先生产：Y=是，N=否 */
-    @Excel(name = "是否优先生产：Y=是，N=否")
+    /** 是否优先生产 */
+    @Excel(name = "是否优先生产")
     private String isPriority;
 
-    /** 是否已生产：Y=是，N=否 */
-    @Excel(name = "是否已生产：Y=是，N=否")
+    /** 是否已生产 */
+    @Excel(name = "是否已生产")
     private String isProduced;
 
     /** 生产日期 */

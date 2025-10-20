@@ -25,7 +25,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * 生产订单管理Controller
  * 
  * @author Yiming Pu
- * @date 2025-09-24
+ * @date 2025-10-13
  */
 @RestController
 @RequestMapping("/mdm/productionOrder")

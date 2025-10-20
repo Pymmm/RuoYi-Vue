@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="id != null "> and id like concat('%', #{id}, '%')</if>
             <if test="orderDate != null "> and order_date = #{orderDate}</if>
-            <if test="productCategory != null  and productCategory != ''"> and product_category like concat('%', #{productCategory}, '%')</if>
+            <if test="productCategory != null  and productCategory != ''"> and product_category = #{productCategory}</if>
             <if test="customerName != null  and customerName != ''"> and customer_name like concat('%', #{customerName}, '%')</if>
             <if test="specificationModel != null  and specificationModel != ''"> and specification_model like concat('%', #{specificationModel}, '%')</if>
             <if test="weightKg != null "> and weight_kg like concat('%', #{weightKg}, '%')</if>

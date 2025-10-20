@@ -58,4 +58,12 @@ public interface ProductionOrderMapper
      * @return 结果
      */
     public int deleteProductionOrderByIds(Long[] ids);
+
+    /**
+     * 新增：批量插入生产订单管理
+     *
+     * @param productionOrderList
+     * @return 结果
+     */
+    public int insertProductionOrders(List<ProductionOrder> productionOrderList);
 }

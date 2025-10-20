@@ -1,47 +1,66 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.mdm.mapper.ProductionOrderMapper">
-    
+
     <resultMap type="ProductionOrder" id="ProductionOrderResult">
-        <result property="id"    column="id"    />
-        <result property="orderDate"    column="order_date"    />
-        <result property="productCategory"    column="product_category"    />
-        <result property="customerName"    column="customer_name"    />
-        <result property="specificationModel"    column="specification_model"    />
-        <result property="weightKg"    column="weight_kg"    />
-        <result property="deliveryDate"    column="delivery_date"    />
-        <result property="isPriority"    column="is_priority"    />
-        <result property="isProduced"    column="is_produced"    />
-        <result property="productionDate"    column="production_date"    />
-        <result property="remark"    column="remark"    />
-        <result property="createBy"    column="create_by"    />
-        <result property="createTime"    column="create_time"    />
-        <result property="updateBy"    column="update_by"    />
-        <result property="updateTime"    column="update_time"    />
+        <result property="id" column="id"/>
+        <result property="orderDate" column="order_date"/>
+        <result property="productCategory" column="product_category"/>
+        <result property="customerName" column="customer_name"/>
+        <result property="specificationModel" column="specification_model"/>
+        <result property="weightKg" column="weight_kg"/>
+        <result property="deliveryDate" column="delivery_date"/>
+        <result property="isPriority" column="is_priority"/>
+        <result property="isProduced" column="is_produced"/>
+        <result property="productionDate" column="production_date"/>
+        <result property="remark" column="remark"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
     </resultMap>
 
     <sql id="selectProductionOrderVo">
-        select id, order_date, product_category, customer_name, specification_model, weight_kg, delivery_date, is_priority, is_produced, production_date, remark, create_by, create_time, update_by, update_time from mdm_production_order
+        select id,
+               order_date,
+               product_category,
+               customer_name,
+               specification_model,
+               weight_kg,
+               delivery_date,
+               is_priority,
+               is_produced,
+               production_date,
+               remark,
+               create_by,
+               create_time,
+               update_by,
+               update_time
+        from mdm_production_order
     </sql>
 
     <select id="selectProductionOrderList" parameterType="ProductionOrder" resultMap="ProductionOrderResult">
         <include refid="selectProductionOrderVo"/>
-        <where>  
-            <if test="id != null "> and id like concat('%', #{id}, '%')</if>
-            <if test="orderDate != null "> and order_date = #{orderDate}</if>
-            <if test="productCategory != null  and productCategory != ''"> and product_category = #{productCategory}</if>
-            <if test="customerName != null  and customerName != ''"> and customer_name like concat('%', #{customerName}, '%')</if>
-            <if test="specificationModel != null  and specificationModel != ''"> and specification_model like concat('%', #{specificationModel}, '%')</if>
-            <if test="weightKg != null "> and weight_kg like concat('%', #{weightKg}, '%')</if>
-            <if test="deliveryDate != null "> and delivery_date = #{deliveryDate}</if>
-            <if test="isPriority != null  and isPriority != ''"> and is_priority = #{isPriority}</if>
-            <if test="isProduced != null  and isProduced != ''"> and is_produced = #{isProduced}</if>
-            <if test="productionDate != null "> and production_date = #{productionDate}</if>
+        <where>
+            <if test="id != null ">and id like concat('%', #{id}, '%')</if>
+            <if test="orderDate != null ">and order_date = #{orderDate}</if>
+            <if test="productCategory != null  and productCategory != ''">and product_category = #{productCategory}</if>
+            <if test="customerName != null  and customerName != ''">and customer_name like concat('%', #{customerName},
+                '%')
+            </if>
+            <if test="specificationModel != null  and specificationModel != ''">and specification_model like concat('%',
+                #{specificationModel}, '%')
+            </if>
+            <if test="weightKg != null ">and weight_kg like concat('%', #{weightKg}, '%')</if>
+            <if test="deliveryDate != null ">and delivery_date = #{deliveryDate}</if>
+            <if test="isPriority != null  and isPriority != ''">and is_priority = #{isPriority}</if>
+            <if test="isProduced != null  and isProduced != ''">and is_produced = #{isProduced}</if>
+            <if test="productionDate != null ">and production_date = #{productionDate}</if>
         </where>
     </select>
-    
+
     <select id="selectProductionOrderById" parameterType="Long" resultMap="ProductionOrderResult">
         <include refid="selectProductionOrderVo"/>
         where id = #{id}
@@ -64,7 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="createTime != null">create_time,</if>
             <if test="updateBy != null">update_by,</if>
             <if test="updateTime != null">update_time,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="orderDate != null">#{orderDate},</if>
             <if test="productCategory != null and productCategory != ''">#{productCategory},</if>
@@ -80,7 +99,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="createTime != null">#{createTime},</if>
             <if test="updateBy != null">#{updateBy},</if>
             <if test="updateTime != null">#{updateTime},</if>
-         </trim>
+        </trim>
+    </insert>
+
+    <!-- 新增：批量插入 -->
+    <insert id="insertProductionOrders" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into mdm_production_order (order_date, product_category, customer_name, specification_model, weight_kg,
+        delivery_date, is_priority, is_produced, production_date)
+        values
+        <foreach item="productionOrder" index="index" collection="list" separator=",">
+            (#{productionOrder.orderDate}, #{productionOrder.productCategory}, #{productionOrder.customerName},
+            #{productionOrder.specificationModel}, #{productionOrder.weightKg}, #{productionOrder.deliveryDate},
+            #{productionOrder.isPriority}, #{productionOrder.isProduced}, #{productionOrder.productionDate})
+        </foreach>
     </insert>
 
     <update id="updateProductionOrder" parameterType="ProductionOrder">
@@ -89,7 +120,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="orderDate != null">order_date = #{orderDate},</if>
             <if test="productCategory != null and productCategory != ''">product_category = #{productCategory},</if>
             <if test="customerName != null and customerName != ''">customer_name = #{customerName},</if>
-            <if test="specificationModel != null and specificationModel != ''">specification_model = #{specificationModel},</if>
+            <if test="specificationModel != null and specificationModel != ''">specification_model =
+                #{specificationModel},
+            </if>
             <if test="weightKg != null">weight_kg = #{weightKg},</if>
             <if test="deliveryDate != null">delivery_date = #{deliveryDate},</if>
             <if test="isPriority != null and isPriority != ''">is_priority = #{isPriority},</if>
@@ -105,11 +138,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteProductionOrderById" parameterType="Long">
-        delete from mdm_production_order where id = #{id}
+        delete
+        from mdm_production_order
+        where id = #{id}
     </delete>
 
     <delete id="deleteProductionOrderByIds" parameterType="String">
-        delete from mdm_production_order where id in 
+        delete from mdm_production_order where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

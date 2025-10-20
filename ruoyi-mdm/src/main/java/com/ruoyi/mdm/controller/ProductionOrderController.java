@@ -2,6 +2,9 @@ package com.ruoyi.mdm.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+//新增：引入（否则会引起MultipartFile报错，暂时不知道是不是Spring Web依赖的问题）
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,14 +26,13 @@ import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 生产订单管理Controller
- * 
+ *
  * @author Yiming Pu
  * @date 2025-10-13
  */
 @RestController
 @RequestMapping("/mdm/productionOrder")
-public class ProductionOrderController extends BaseController
-{
+public class ProductionOrderController extends BaseController {
     @Autowired
     private IProductionOrderService productionOrderService;
 
@@ -39,8 +41,7 @@ public class ProductionOrderController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mdm:productionOrder:list')")
     @GetMapping("/list")
-    public TableDataInfo list(ProductionOrder productionOrder)
-    {
+    public TableDataInfo list(ProductionOrder productionOrder) {
         startPage();
         List<ProductionOrder> list = productionOrderService.selectProductionOrderList(productionOrder);
         return getDataTable(list);
@@ -52,11 +53,22 @@ public class ProductionOrderController extends BaseController
     @PreAuthorize("@ss.hasPermi('mdm:productionOrder:export')")
     @Log(title = "生产订单管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, ProductionOrder productionOrder)
-    {
+    public void export(HttpServletResponse response, ProductionOrder productionOrder) {
         List<ProductionOrder> list = productionOrderService.selectProductionOrderList(productionOrder);
         ExcelUtil<ProductionOrder> util = new ExcelUtil<ProductionOrder>(ProductionOrder.class);
         util.exportExcel(response, list, "生产订单管理数据");
+    }
+
+    /**
+     * 新增：导入生产订单管理列表
+     */
+    @PreAuthorize("@ss.hasPermi('mdm:productionOrder:add')")
+    @Log(title = "生产订单管理", businessType = BusinessType.IMPORT)
+    @PostMapping("/import")
+    public AjaxResult excelImport(MultipartFile file) throws Exception {
+        ExcelUtil<ProductionOrder> util = new ExcelUtil<ProductionOrder>(ProductionOrder.class);
+        List<ProductionOrder> productionOrderList = util.importExcel(file.getInputStream());
+        return toAjax(productionOrderService.insertProductionOrders(productionOrderList));
     }
 
     /**
@@ -64,8 +76,7 @@ public class ProductionOrderController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mdm:productionOrder:query')")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id)
-    {
+    public AjaxResult getInfo(@PathVariable("id") Long id) {
         return success(productionOrderService.selectProductionOrderById(id));
     }
 
@@ -75,8 +86,7 @@ public class ProductionOrderController extends BaseController
     @PreAuthorize("@ss.hasPermi('mdm:productionOrder:add')")
     @Log(title = "生产订单管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody ProductionOrder productionOrder)
-    {
+    public AjaxResult add(@RequestBody ProductionOrder productionOrder) {
         return toAjax(productionOrderService.insertProductionOrder(productionOrder));
     }
 
@@ -86,8 +96,7 @@ public class ProductionOrderController extends BaseController
     @PreAuthorize("@ss.hasPermi('mdm:productionOrder:edit')")
     @Log(title = "生产订单管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody ProductionOrder productionOrder)
-    {
+    public AjaxResult edit(@RequestBody ProductionOrder productionOrder) {
         return toAjax(productionOrderService.updateProductionOrder(productionOrder));
     }
 
@@ -96,9 +105,8 @@ public class ProductionOrderController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mdm:productionOrder:remove')")
     @Log(title = "生产订单管理", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
+    @DeleteMapping("/{ids}")
+    public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(productionOrderService.deleteProductionOrderByIds(ids));
     }
 }

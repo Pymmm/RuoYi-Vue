@@ -5,35 +5,58 @@
 <mapper namespace="com.ruoyi.mdm.mapper.DepartmentMapper">
 
     <resultMap type="Department" id="DepartmentResult">
-        <result property="id"    column="id"    />
-        <result property="departmentCode"    column="department_code"    />
-        <result property="organizationCode"    column="organization_code"    />
-        <result property="organizationName"    column="organization_name"    />
-        <result property="unitCode"    column="unit_code"    />
-        <result property="unitName"    column="unit_name"    />
-        <result property="subUnitCode"    column="sub_unit_code"    />
-        <result property="subUnitName"    column="sub_unit_name"    />
-        <result property="createBy"    column="create_by"    />
-        <result property="createTime"    column="create_time"    />
-        <result property="updateBy"    column="update_by"    />
-        <result property="updateTime"    column="update_time"    />
-        <result property="remark"    column="remark"    />
+        <result property="id" column="id"/>
+        <result property="departmentCode" column="department_code"/>
+        <result property="organizationCode" column="organization_code"/>
+        <result property="organizationName" column="organization_name"/>
+        <result property="unitCode" column="unit_code"/>
+        <result property="unitName" column="unit_name"/>
+        <result property="subUnitCode" column="sub_unit_code"/>
+        <result property="subUnitName" column="sub_unit_name"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
     </resultMap>
 
     <sql id="selectDepartmentVo">
-        select id, department_code, organization_code, organization_name, unit_code, unit_name, sub_unit_code, sub_unit_name, create_by, create_time, update_by, update_time, remark from mdm_department
+        select id,
+               department_code,
+               organization_code,
+               organization_name,
+               unit_code,
+               unit_name,
+               sub_unit_code,
+               sub_unit_name,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark
+        from mdm_department
     </sql>
 
     <select id="selectDepartmentList" parameterType="Department" resultMap="DepartmentResult">
         <include refid="selectDepartmentVo"/>
         <where>
-            <if test="departmentCode != null  and departmentCode != ''"> and department_code like concat('%', #{departmentCode}, '%')</if>
-            <if test="organizationCode != null  and organizationCode != ''"> and organization_code like concat('%', #{organizationCode}, '%')</if>
-            <if test="organizationName != null  and organizationName != ''"> and organization_name like concat('%', #{organizationName}, '%')</if>
-            <if test="unitCode != null  and unitCode != ''"> and unit_code like concat('%', #{unitCode}, '%')</if>
-            <if test="unitName != null  and unitName != ''"> and unit_name like concat('%', #{unitName}, '%')</if>
-            <if test="subUnitCode != null  and subUnitCode != ''"> and sub_unit_code like concat('%', #{subUnitCode}, '%')</if>
-            <if test="subUnitName != null  and subUnitName != ''"> and sub_unit_name like concat('%', #{subUnitName}, '%')</if>
+            <if test="departmentCode != null  and departmentCode != ''">and department_code like concat('%',
+                #{departmentCode}, '%')
+            </if>
+            <if test="organizationCode != null  and organizationCode != ''">and organization_code like concat('%',
+                #{organizationCode}, '%')
+            </if>
+            <if test="organizationName != null  and organizationName != ''">and organization_name like concat('%',
+                #{organizationName}, '%')
+            </if>
+            <if test="unitCode != null  and unitCode != ''">and unit_code like concat('%', #{unitCode}, '%')</if>
+            <if test="unitName != null  and unitName != ''">and unit_name like concat('%', #{unitName}, '%')</if>
+            <if test="subUnitCode != null  and subUnitCode != ''">and sub_unit_code like concat('%', #{subUnitCode},
+                '%')
+            </if>
+            <if test="subUnitName != null  and subUnitName != ''">and sub_unit_name like concat('%', #{subUnitName},
+                '%')
+            </if>
         </where>
     </select>
 
@@ -76,10 +99,12 @@
 
     <!-- 新增：批量插入 -->
     <insert id="insertDepartments" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
-        insert into mdm_department (department_code, organization_code, organization_name, unit_code, unit_name, sub_unit_code, sub_unit_name)
+        insert into mdm_department (department_code, organization_code, organization_name, unit_code, unit_name,
+        sub_unit_code, sub_unit_name)
         values
         <foreach item="dept" index="index" collection="list" separator=",">
-            (#{dept.departmentCode}, #{dept.organizationCode}, #{dept.organizationName}, #{dept.unitCode}, #{dept.unitName}, #{dept.subUnitCode}, #{dept.subUnitName})
+            (#{dept.departmentCode}, #{dept.organizationCode}, #{dept.organizationName}, #{dept.unitCode},
+            #{dept.unitName}, #{dept.subUnitCode}, #{dept.subUnitName})
         </foreach>
     </insert>
 
@@ -103,7 +128,9 @@
     </update>
 
     <delete id="deleteDepartmentById" parameterType="Long">
-        delete from mdm_department where id = #{id}
+        delete
+        from mdm_department
+        where id = #{id}
     </delete>
 
     <delete id="deleteDepartmentByIds" parameterType="String">

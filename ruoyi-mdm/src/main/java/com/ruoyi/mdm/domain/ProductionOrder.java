@@ -12,7 +12,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 生产订单管理对象 mdm_production_order
  * 
  * @author Yiming Pu
- * @date 2025-10-13
+ * @date 2025-10-22
  */
 public class ProductionOrder extends BaseEntity
 {

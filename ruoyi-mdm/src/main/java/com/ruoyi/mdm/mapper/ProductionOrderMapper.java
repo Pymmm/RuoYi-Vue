@@ -7,7 +7,7 @@ import com.ruoyi.mdm.domain.ProductionOrder;
  * 生产订单管理Mapper接口
  * 
  * @author Yiming Pu
- * @date 2025-10-13
+ * @date 2025-10-22
  */
 public interface ProductionOrderMapper 
 {

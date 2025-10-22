@@ -46,7 +46,9 @@
         <where>
             <if test="id != null ">and id like concat('%', #{id}, '%')</if>
             <if test="orderDate != null ">and order_date = #{orderDate}</if>
-            <if test="productCategory != null  and productCategory != ''">and product_category = #{productCategory}</if>
+            <if test="productCategory != null  and productCategory != ''">and product_category like concat('%',
+                #{productCategory}, '%')
+            </if>
             <if test="customerName != null  and customerName != ''">and customer_name like concat('%', #{customerName},
                 '%')
             </if>
@@ -58,6 +60,9 @@
             <if test="isPriority != null  and isPriority != ''">and is_priority = #{isPriority}</if>
             <if test="isProduced != null  and isProduced != ''">and is_produced = #{isProduced}</if>
             <if test="productionDate != null ">and production_date = #{productionDate}</if>
+            <if test="remark != null  and remark != ''">and remark = #{remark}</if>
+            <if test="createBy != null  and createBy != ''">and create_by like concat('%', #{createBy}, '%')</if>
+            <if test="createTime != null ">and create_time = #{createTime}</if>
         </where>
     </select>
 

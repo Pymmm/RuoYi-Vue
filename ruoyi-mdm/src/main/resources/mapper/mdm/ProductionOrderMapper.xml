@@ -13,6 +13,7 @@
         <result property="weightKg" column="weight_kg"/>
         <result property="deliveryDate" column="delivery_date"/>
         <result property="isPriority" column="is_priority"/>
+        <result property="isUrgent" column="is_urgent"/>
         <result property="isProduced" column="is_produced"/>
         <result property="productionDate" column="production_date"/>
         <result property="remark" column="remark"/>
@@ -31,6 +32,7 @@
                weight_kg,
                delivery_date,
                is_priority,
+               is_urgent,
                is_produced,
                production_date,
                remark,
@@ -58,6 +60,7 @@
             <if test="weightKg != null ">and weight_kg like concat('%', #{weightKg}, '%')</if>
             <if test="deliveryDate != null ">and delivery_date = #{deliveryDate}</if>
             <if test="isPriority != null  and isPriority != ''">and is_priority = #{isPriority}</if>
+            <if test="isUrgent != null  and isUrgent != ''">and is_urgent = #{isUrgent}</if>
             <if test="isProduced != null  and isProduced != ''">and is_produced = #{isProduced}</if>
             <if test="productionDate != null ">and production_date = #{productionDate}</if>
             <if test="remark != null  and remark != ''">and remark = #{remark}</if>
@@ -81,6 +84,7 @@
             <if test="weightKg != null">weight_kg,</if>
             <if test="deliveryDate != null">delivery_date,</if>
             <if test="isPriority != null and isPriority != ''">is_priority,</if>
+            <if test="isUrgent != null and isUrgent != ''">is_urgent,</if>
             <if test="isProduced != null and isProduced != ''">is_produced,</if>
             <if test="productionDate != null">production_date,</if>
             <if test="remark != null">remark,</if>
@@ -97,6 +101,7 @@
             <if test="weightKg != null">#{weightKg},</if>
             <if test="deliveryDate != null">#{deliveryDate},</if>
             <if test="isPriority != null and isPriority != ''">#{isPriority},</if>
+            <if test="isUrgent != null and isUrgent != ''">#{isUrgent},</if>
             <if test="isProduced != null and isProduced != ''">#{isProduced},</if>
             <if test="productionDate != null">#{productionDate},</if>
             <if test="remark != null">#{remark},</if>
@@ -110,12 +115,13 @@
     <!-- 新增：批量插入 -->
     <insert id="insertProductionOrders" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
         insert into mdm_production_order (order_date, product_category, customer_name, specification_model, weight_kg,
-        delivery_date, is_priority, is_produced, production_date)
+        delivery_date, is_priority, is_urgent, is_produced, production_date)
         values
         <foreach item="productionOrder" index="index" collection="list" separator=",">
             (#{productionOrder.orderDate}, #{productionOrder.productCategory}, #{productionOrder.customerName},
             #{productionOrder.specificationModel}, #{productionOrder.weightKg}, #{productionOrder.deliveryDate},
-            #{productionOrder.isPriority}, #{productionOrder.isProduced}, #{productionOrder.productionDate})
+            #{productionOrder.isPriority}, #{productionOrder.isUrgent}, #{productionOrder.isProduced},
+            #{productionOrder.productionDate})
         </foreach>
     </insert>
 
@@ -131,6 +137,7 @@
             <if test="weightKg != null">weight_kg = #{weightKg},</if>
             <if test="deliveryDate != null">delivery_date = #{deliveryDate},</if>
             <if test="isPriority != null and isPriority != ''">is_priority = #{isPriority},</if>
+            <if test="isUrgent != null and isUrgent != ''">is_urgent = #{isUrgent},</if>
             <if test="isProduced != null and isProduced != ''">is_produced = #{isProduced},</if>
             <if test="productionDate != null">production_date = #{productionDate},</if>
             <if test="remark != null">remark = #{remark},</if>

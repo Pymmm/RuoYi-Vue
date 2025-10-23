@@ -14,7 +14,9 @@ CREATE TABLE mdm_production_order
     specification_model VARCHAR(100)   NOT NULL COMMENT '规格型号',
     weight_kg           DECIMAL(12, 2) NOT NULL COMMENT '重量(KG)',
     delivery_date       DATETIME       NOT NULL COMMENT '交期',
+
     is_priority         CHAR(1)        NOT NULL DEFAULT 'N' COMMENT '是否优先生产：Y=是，N=否',
+    is_urgent           CHAR(1)        NOT NULL DEFAULT 'N' COMMENT '是否加急：Y=是，N=否',
     is_produced         CHAR(1)        NOT NULL DEFAULT 'N' COMMENT '是否已生产：Y=是，N=否',
     production_date     DATETIME                DEFAULT NULL COMMENT '生产日期',
     remark              VARCHAR(500)            DEFAULT NULL COMMENT '备注',
@@ -29,5 +31,6 @@ CREATE TABLE mdm_production_order
 -- 生产订单表初始化数据
 -- ----------------------------
 INSERT INTO mdm_production_order (order_date, product_category, customer_name, specification_model,
-                       weight_kg, delivery_date, is_priority, is_produced, production_date, remark)
-VALUES ('2025-09-10', '光管', '芜湖美的', '12.7*0.75', 3500, '2025-09-13', 'N', 'N', '2025-09-15', '注意盘重');
+                                  weight_kg, delivery_date, is_priority, is_urgent, is_produced, production_date,
+                                  remark)
+VALUES ('2025-09-10', '光管', '芜湖美的', '12.7*0.75', 3500, '2025-09-13', 'N', 'N', 'N', '2025-09-15', '注意盘重');

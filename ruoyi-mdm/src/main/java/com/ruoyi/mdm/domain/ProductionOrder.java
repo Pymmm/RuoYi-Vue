@@ -12,7 +12,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 生产订单管理对象 mdm_production_order
  * 
  * @author Yiming Pu
- * @date 2025-10-22
+ * @date 2025-10-23
  */
 public class ProductionOrder extends BaseEntity
 {
@@ -51,6 +51,10 @@ public class ProductionOrder extends BaseEntity
     /** 是否优先生产 */
     @Excel(name = "是否优先生产")
     private String isPriority;
+
+    /** 是否加急 */
+    @Excel(name = "是否加急")
+    private String isUrgent;
 
     /** 是否已生产 */
     @Excel(name = "是否已生产")
@@ -141,6 +145,16 @@ public class ProductionOrder extends BaseEntity
         return isPriority;
     }
 
+    public void setIsUrgent(String isUrgent) 
+    {
+        this.isUrgent = isUrgent;
+    }
+
+    public String getIsUrgent() 
+    {
+        return isUrgent;
+    }
+
     public void setIsProduced(String isProduced) 
     {
         this.isProduced = isProduced;
@@ -172,6 +186,7 @@ public class ProductionOrder extends BaseEntity
             .append("weightKg", getWeightKg())
             .append("deliveryDate", getDeliveryDate())
             .append("isPriority", getIsPriority())
+            .append("isUrgent", getIsUrgent())
             .append("isProduced", getIsProduced())
             .append("productionDate", getProductionDate())
             .append("remark", getRemark())

@@ -62,7 +62,7 @@ public class ProductionOrderController extends BaseController {
     /**
      * 新增：导入生产订单管理列表
      */
-    @PreAuthorize("@ss.hasPermi('mdm:productionOrder:add')")
+    @PreAuthorize("@ss.hasPermi('mdm:productionOrder:import')") // 原先为add，修改为import用于单独的数据权限控制
     @Log(title = "生产订单管理", businessType = BusinessType.IMPORT)
     @PostMapping("/import")
     public AjaxResult excelImport(MultipartFile file) throws Exception {
